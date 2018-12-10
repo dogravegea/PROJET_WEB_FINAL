@@ -1,0 +1,20 @@
+extends layout.pug
+
+block content
+    h2 Ajouter un nouveau singe
+
+    form(method='POST' action='/monkeys')
+        div.form-group
+            label(for='name') Nom:
+            input#name.form-control(type='text', placeholder='Nom du singe' name='name')
+        div.form-group
+            label(for='age') Age:
+            input#age.form-control(type='text', placeholder='Age du singe' name='age')
+        div.form-group
+            label(for='espece') Espece:
+            input#espece.form-control(type='text', placeholder='Espece du singe' name='espece')
+        button.btn.btn-primary(type='submit') Creer un nouveau singe
+
+block footer
+        h1 
+            a(href= '/') Retour

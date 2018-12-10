@@ -1,0 +1,64 @@
+extends layout.pug
+
+block entete
+    h1 Vue en detail de #{obj.name}
+
+block content	
+    table.table
+        thead
+            tr
+                th Photo
+                th #ID
+                th Age
+                th Espece
+                th Enclos
+                th Options
+        tbody
+            tr
+                td 
+                    - var urlImg = obj.urlPhoto
+                    if obj.urlPhoto != ""
+                        img(src=urlImg)
+                    else
+                        -
+                td #{obj.id}
+                td #{obj.age}
+                td #{obj.espece}
+                each enclos in tabEnclos
+                    if obj.EncloId == enclos.id
+                        - nomEnclos = enclos.name
+                    
+                td #{nomEnclos}
+                td 
+                    
+                    ul.nav.nav-pills
+                        li.active
+                            a(href='/majSinge/' + obj.id)
+                                span.badge.pull-right
+                                |  Mettre a jour
+                    | &nbsp;
+                    ul.nav.nav-pills  
+                        li.active
+                            a(href='/LierAEnclos/' + obj.id)
+                                span.badge.pull-right
+                                |  Ajouter a un enclos
+                    | &nbsp;
+                    
+                    ul.nav.nav-pills
+                        - var urlAddImg = '/addImg/' + obj.id
+                        form(method='POST' action=urlAddImg enctype="multipart/form-data")
+                            div.form-group
+                                label(for='file') Choisir la photo du singe
+                                input#file.form-control(type='file', name='file')
+                            button.btn.btn-primary(type='submit') Ajouter l'image
+
+                    | &nbsp;
+                    ul.nav.nav-pills
+                            li.active
+                                a(href='/delete/monkeys/' + obj.id)
+                                    span.badge.pull-right
+                                    |  Supprimer
+
+block footer
+        h1 
+            a(href= '/') Retour 

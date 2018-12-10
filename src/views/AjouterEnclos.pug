@@ -1,0 +1,20 @@
+extends layout.pug
+
+block content
+    h2 Ajouter un nouvel enclos
+
+    form(method='POST' action='/enclos')
+        div.form-group
+            label(for='name') Nom:
+            input#name.form-control(type='text', placeholder="Nom de l'enclos" name='name')
+        div.form-group
+            label(for='taille') Taille:
+            input#taille.form-control(type='text', placeholder="Taille de l'enclos" name='taille')
+        div.form-group
+            label(for='environnement') Environnement:
+            input#environnement.form-control(type='text', placeholder="Environnement de l'enclos" name='environnement')
+        button.btn.btn-primary(type='submit') Creer un nouvel enclos
+
+block footer
+        h1 
+            a(href= '/enclos') Retour

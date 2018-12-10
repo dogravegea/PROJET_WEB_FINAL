@@ -1,0 +1,49 @@
+extends layout.pug
+
+block entete
+    h2 Mettre le singe dans l'enclos
+    
+block content
+    h3 Liste des enclos disponibles :
+    - var nbEnclos = obj.length
+    
+    table.table
+        thead
+            tr
+                th #ID
+                th Nom
+                th Capacite
+                th Environement
+                th 
+        tbody
+        - var i = 0
+        each enclos in obj
+            if i % 2 == 0
+                tr
+                    td #{enclos.id}
+                    td #{enclos.name}
+                    td #{enclos.taille}
+                    td #{enclos.environnement}
+                    td
+                        - var url = '/lier/' + id + '/' + enclos.id
+                            ul.nav.nav-pills
+                                li.active
+                                    a(href=url)
+                                        span.badge.pull-right
+                                        |  Choisir
+            else
+                tr.active
+                    td #{enclos.id}
+                    td #{enclos.name}
+                    td #{enclos.taille}
+                    td #{enclos.environnement}
+                    td
+                        - var url = '/lier/' + id + '/' + enclos.id
+                            ul.nav.nav-pills
+                                li.active
+                                    a(href=url)
+                                        span.badge.pull-right
+                                        |  Choisir
+                                
+            - i++
+    

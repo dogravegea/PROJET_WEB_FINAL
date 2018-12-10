@@ -1,0 +1,69 @@
+extends layout.pug
+
+block entete
+	.container-fluid
+		.row
+			.col-md-12
+				h1 Bienvenue sur Monkey Manager 3000 !
+
+block content		
+				h3 Apercu du zoo :
+				- var nbSinges = tabMonkey.length
+				- var nbEnclos = tabEnclos.length
+			
+				ul.nav.nav-pills
+					li.active
+						a(href='/')
+							span.badge.pull-right #{nbSinges}
+							|  Singes
+					li
+						a(href='/enclos')
+							span.badge.pull-right #{nbEnclos}
+							|  Enclos
+
+				table.table
+					thead
+						tr
+							th #ID
+							th Nom
+							th Age
+							th Enclos
+							th Espece
+					tbody
+					- var i = 0
+					
+					each monkey in tabMonkey
+						- var nomEnclos = 'Sans enclos'
+						- var url = '/monkeys/' + monkey.id
+						if i % 2 == 0
+							tr
+								td #{monkey.id}
+								td 
+									a(href=url) #{monkey.name}
+								td #{monkey.age}
+								each enclos in tabEnclos
+									if monkey.EncloId == enclos.id
+										- nomEnclos = enclos.name
+
+								td #{nomEnclos}
+								td #{monkey.espece}
+						else
+							tr.active
+								td #{monkey.id}
+								td 
+									a(href=url) #{monkey.name}
+								td #{monkey.age}
+								each enclos in tabEnclos
+									if monkey.EncloId == enclos.id
+										- nomEnclos = enclos.name
+
+								td #{nomEnclos}
+								td #{monkey.espece}
+								
+						- i++
+
+				ul.nav.nav-pills
+					li.active
+						a(href='/AddMonkey')
+							span.badge.pull-right
+							|  Ajouter un singe 

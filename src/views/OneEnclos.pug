@@ -1,0 +1,53 @@
+extends layout.pug
+
+block entete
+    h1 Vue en detail de #{obj.name}
+
+block content
+
+    table.table
+        thead
+             tr
+                th #ID
+                th Taille
+                th Environnement
+                th Singes presents dans l'enclos
+                th Options
+        tbody
+		   
+             tr
+                td #{obj.id}
+                td #{obj.taille}
+                td #{obj.environnement}
+                td
+                    each monkey in tabMonkey
+                       .row
+                           .col-md-12
+                                   - var url = '/monkeys/' + monkey.id
+                                   a(href=url) #{monkey.name}
+                  
+                td
+                   ul.nav.nav-pills
+                       li.active
+                           a(href='/majEnclos/' + obj.id)
+                               span.badge.pull-right
+                               |  Mettre a jour
+                   | &nbsp;        
+                   ul.nav.nav-pills
+                       - var clique = 0;
+                       li.active
+                           a(href='/delete/enclos/' + obj.id)
+                               span.badge.pull-right
+                               |  Supprimer
+                               - clique = 1;
+
+                       //if (clique == 1)
+                       //    .alert.alert-success(role='alert')
+                       //        strong Well done!
+                       //        |  You successfully read 
+                       //        a.alert-link(href='#') this important alert message
+                       //        | .
+
+block footer
+    h1 
+        a(href= '/enclos') Retour
