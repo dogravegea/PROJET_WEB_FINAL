@@ -171,12 +171,12 @@ app.get('/monkeys/:id', function (req, res) {
 })
 
 // GET FILTER
-app.get('/monkeys', function (req, res) {
-    models.Monkey.findAll({ where: req.query })
-        .then((monkeys) => {
-            res.render('AllMonkeys', { obj: monkeys });
-        })
-})
+//app.get('/monkeys', function (req, res) {
+//    models.Monkey.findAll({ where: req.query })
+//        .then((monkeys) => {
+//            res.render('AllMonkeys', { obj: monkeys });
+//        })
+//})
 
 // API
 // GET ALL
