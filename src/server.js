@@ -130,6 +130,19 @@ app.get('/lier/:idSinge/:idEnclos', function (req, res) {
     //    })
 })
 
+// LIER SINGE A ENCLOS API
+app.get('/v1/lier/:idSinge/:idEnclos', function (req, res) {
+    models.Enclos.findOne({ where: { id: req.params.idEnclos } })
+        .then((enclos) => {
+            models.Monkey.findOne({ where: { id: req.params.idSinge } })
+                .then((singe) => {
+                    enclos.addMonkeys(singe).then(() => {
+                        res.send("Singe et enclos lies")
+                    })
+                })
+        })
+})
+
 // Monkeys--------------------------------------------------------------------------------------------------------------------------------
 
 // CREATE -------------------------------------------
