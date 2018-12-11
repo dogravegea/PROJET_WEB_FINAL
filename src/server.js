@@ -82,7 +82,11 @@ app.post('/addImg/:id', upload.single('file'), function (req, res) {
     else {
         models.Monkey.findOne({ where: { id: req.params.id } })
             .then((monkey) => {
-                res.render('OneMonkey', { obj: monkey });
+                models.Enclos.findAll()
+                    .then((enclos2) => {
+                        //console.log(enclos
+                        res.render('OneMonkey', { obj: singe, tabEnclos: enclos2 });
+                    })
             })
     }
 })
@@ -149,7 +153,8 @@ app.post('/v1/monkeys', function (req, res) {
         name: req.body.name,
         age: req.body.age,
         espece: req.body.espece,
-        nomEnclos: 'Sans enclos'
+        nomEnclos: 'Sans enclos',
+        urlPhoto: ""
     })
         .then(() => {
             res.send('Singe Ajoute')
