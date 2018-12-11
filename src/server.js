@@ -105,29 +105,6 @@ app.get('/lier/:idSinge/:idEnclos', function (req, res) {
                     })
                 })
         })
-
-    //var TempMonkey;
-    //var tabTempEnclos = [];
-
-    //models.Enclos.findOne({ where: { id: req.params.idEnclos } })
-    //    .then((enclos) => {
-    //        tabTempEnclos = enclos;
-    //    })
-    //    .then(() => {
-    //        models.Monkey.findOne({ where: { id: req.params.idSinge } })
-    //            .then((singe) => {
-    //                TempMonkey = singe;
-    //            })
-    //    })
-    //    .then(() => {
-    //        tabTempEnclos.addMonkeys(TempMonkey)
-    //            .then(() => {
-    //                models.Enclos.findAll()
-    //                    .then((enclos2) => {
-    //                        res.render('OneMonkey', { obj: TempMonkey, tabEnclos: enclos2 });
-    //                    })
-    //            })
-    //    })
 })
 
 // LIER SINGE A ENCLOS API
@@ -160,7 +137,7 @@ app.post('/monkeys', function (req, res) {
         name: req.body.name,
         age: req.body.age,
         espece: req.body.espece,
-        urlPhoto: ""
+        urlPhoto: "/static/images/default.png"
     })
         .then(() => {
             res.render('SingeAjoute')
@@ -174,7 +151,7 @@ app.post('/v1/monkeys', function (req, res) {
         name: req.body.name,
         age: req.body.age,
         espece: req.body.espece,
-        urlPhoto: ""
+        urlPhoto: "/static/images/default.png"
     })
         .then(() => {
             res.send('Singe Ajoute')
