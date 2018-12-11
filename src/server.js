@@ -85,7 +85,7 @@ app.post('/addImg/:id', upload.single('file'), function (req, res) {
                 models.Enclos.findAll()
                     .then((enclos2) => {
                         //console.log(enclos
-                        res.render('OneMonkey', { obj: singe, tabEnclos: enclos2 });
+                        res.render('OneMonkey', { obj: monkey, tabEnclos: enclos2 });
                     })
             })
     }
@@ -139,7 +139,8 @@ app.post('/monkeys', function (req, res) {
     models.Monkey.create({
         name: req.body.name,
         age: req.body.age,
-        espece: req.body.espece
+        espece: req.body.espece,
+        urlPhoto: ""
     })
         .then(() => {
             res.render('SingeAjoute')
@@ -153,7 +154,6 @@ app.post('/v1/monkeys', function (req, res) {
         name: req.body.name,
         age: req.body.age,
         espece: req.body.espece,
-        nomEnclos: 'Sans enclos',
         urlPhoto: ""
     })
         .then(() => {
@@ -307,6 +307,16 @@ app.get('/enclos/:id', function (req, res) {
         })
 })
 
+// API GET MONKEYS IN ENCLOS
+app.get('/v1/enclos/:id/monkeys', function (req, res) {
+    models.Enclos.findOne({ where: { id: req.params.id } })
+        .then((enclos) => {
+            enclos.getMonkeys().then(associatedTasks => {
+                res.send(associatedTasks);
+            })
+        })
+})
+
 // GET FILTER
 app.get('/enclos', function (req, res) {
     var tabTempMonkeys = [];
@@ -343,6 +353,8 @@ app.get('/v1/enclos', function (req, res) {
             res.send(enclos);
         })
 })
+
+
 
 // UPDATE -------------------------------------------
 // PUT UI
