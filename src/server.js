@@ -148,7 +148,14 @@ app.get('/v1/lier/:idSinge/:idEnclos', function (req, res) {
 // CREATE -------------------------------------------
 // POST UI
 // CREATE ONE
-app.post('/monkeys', function (req, res) {
+function MiddleWareCreateMonkey(req, res, next) {
+    const objRet = req.body;
+    if (req.body.name == undefined)
+        res.status(500).send('Name is not defined!');
+    next();
+}
+
+app.post('/monkeys', [MiddleWareCreateMonkey], function (req, res) {
     models.Monkey.create({
         name: req.body.name,
         age: req.body.age,
@@ -162,7 +169,7 @@ app.post('/monkeys', function (req, res) {
 
 // API
 // CREATE ONE
-app.post('/v1/monkeys', function (req, res) {
+app.post('/v1/monkeys', [MiddleWareCreateMonkey], function (req, res) {
     models.Monkey.create({
         name: req.body.name,
         age: req.body.age,
