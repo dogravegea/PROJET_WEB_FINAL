@@ -161,7 +161,7 @@ app.post('/monkeys', [MiddleWareCreateMonkey], function (req, res) {
 
 // API
 // CREATE ONE
-app.post('/v1/monkeys', function (req, res) {
+app.post('/v1/monkeys', [MiddleWareCreateMonkey], function (req, res) {
     models.Monkey.create({
         name: req.body.name,
         age: req.body.age,
@@ -283,8 +283,30 @@ app.delete('/v1/monkeys', function (req, res) {
 // Enclos --------------------------------------------------------------------------------------------------------------------------------
 
 // CREATE -------------------------------------------
+function MiddleWareCreateEnclos(req, res, next) {
+    const objRet = req.body;
+    for (let property in req.body) {
+        if (req.body[property] == '') {
+            switch (property) {
+                case 'name':
+                    objRet[property] = 'sans nom';
+                    break;
+                case 'taille':
+                    objRet[property] = '0';
+                    break;
+                case 'environnement':
+                    objRet[property] = '---';
+                    break;
+            }
+        }
+    }
+    console.log(objRet);
+    req.body = objRet;
+    next();
+}
+
 // POST UI
-app.post('/enclos', function (req, res) {
+app.post('/enclos', [MiddleWareCreateEnclos], function (req, res) {
     models.Enclos.create({
         name: req.body.name,
         taille: req.body.taille,
@@ -296,7 +318,7 @@ app.post('/enclos', function (req, res) {
 })
 
 // API POST
-app.post('/v1/enclos', function (req, res) {
+app.post('/v1/enclos', [MiddleWareCreateEnclos], function (req, res) {
     models.Enclos.create({
         name: req.body.name,
         taille: req.body.taille,
