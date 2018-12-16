@@ -125,14 +125,29 @@ app.get('/v1/lier/:idSinge/:idEnclos', function (req, res) {
 // CREATE -------------------------------------------
 // POST UI
 // CREATE ONE
-/*function MiddleWareCreateMonkey(req, res, next) {
+function MiddleWareCreateMonkey(req, res, next) {
     const objRet = req.body;
-    if (req.body.name == undefined)
-        res.status(500).send('Name is not defined!');
+    for (let property in req.body) {
+        if (req.body[property] == '') {
+            switch (property) {
+                case 'name':
+                    objRet[property] = 'sans nom';
+                    break;
+                case 'age':
+                    objRet[property] = '0';
+                    break;
+                case 'espece':
+                    objRet[property] = '---';
+                    break;
+            }
+        }
+    }
+    console.log(objRet);
+    req.body = objRet;
     next();
-}*/
+}
 
-app.post('/monkeys', function (req, res) {
+app.post('/monkeys', [MiddleWareCreateMonkey], function (req, res) {
     models.Monkey.create({
         name: req.body.name,
         age: req.body.age,
